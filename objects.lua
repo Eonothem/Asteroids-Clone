@@ -8,8 +8,8 @@ Player = class(function(p, x, y)
 				p.velocity["x"] = 0
 				p.velocity["y"] = 0
 
-				input = InputComponent()
-				physics = PhysicsComponent()
+				input = PlayerInputComponent()
+				physics = PlayerPhysicsComponent()
 				end)
 
 function Player:update()
@@ -23,7 +23,9 @@ end
 
 InputComponent = class()
 
-function InputComponent:update(object)
+PlayerInputComponent = class(InputComponent)
+
+function PlayerInputComponent:update(object)
 	MOVE_SPEED = 3
 	
 	if love.keyboard.isDown("right") then
@@ -47,7 +49,10 @@ end
 
 PhysicsComponent = class()
 
-function PhysicsComponent:update(object)
+PlayerPhysicsComponent = class(PhysicsComponent)
+
+
+function PlayerPhysicsComponent:update(object)
 	object.x = object.x + object.velocity["x"]
 	object.y = object.y + object.velocity["y"]
 end
