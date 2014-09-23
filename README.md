@@ -8,8 +8,9 @@ In the words of the great Alexey Pajitnov...
 Who needs Google Docs when you have github.
 
 ## Resources
-===============
 [Game Programming Patterns (Read this if you have no idea what's going on)](http://gameprogrammingpatterns.com/)
+
+## Random Stuff
 
 CERES COME BACK
 
