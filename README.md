@@ -1,9 +1,9 @@
 Asteroids-Clone
 ===============
 
-HAHAHA 
+In the words of the great Alexey Pajitnov...
 
-COMMITING STUFF IS FUN
+>Game programming is whack yo
 
 
 CERES COME BACK
