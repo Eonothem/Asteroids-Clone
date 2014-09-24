@@ -1,31 +1,45 @@
 require("class")
 
-Player = class(function(p, x, y)
+--Generic class that can be any object in the game (Player/Asteroid)
+GameObject = class(function(p, x, y, name)
+				--X/Y Coordinates
 				p.x = x
 				p.y = y
 
+				--Object's name (Mostly Debugging)
+				p.name = name
+
+				--Velocity of the object
 				p.velocity = {}
 				p.velocity["x"] = 0
 				p.velocity["y"] = 0
 
+				--Components [Will make a seperate file and add make it able to pass them in(?)]
 				input = PlayerInputComponent()
-				physics = PlayerPhysicsComponent()
+				physics = StandardPhysicsComponent()
+
 				end)
 
-function Player:update()
+--Updates all the components in GameObject class
+function GameObject:update(WORLD_PARMAS)
 	input:update(self)
-	physics:update(self)
+	physics:update(self, WORLD_PARMAS)
 end
 
 --##############################
 --#         COMPONENTS         #
 --##############################
+--Basically this allows you to plug in different ways of doing... stuff
 
+--Input allows for either actual physical player input, or AI input
 InputComponent = class()
 
+--Inheriets basic InputComponent class
 PlayerInputComponent = class(InputComponent)
 
+--Changes the velocity of the object but does NOT actually move it
 function PlayerInputComponent:update(object)
+	--Move Speed [In pixels]
 	MOVE_SPEED = 3
 	
 	if love.keyboard.isDown("right") then
@@ -43,16 +57,33 @@ function PlayerInputComponent:update(object)
 	else
 		object.velocity["y"] = 0
 	end
+
 end
 
 --#################
 
+--Physics just takes the input and applies it to the object, making it do stuff
 PhysicsComponent = class()
 
-PlayerPhysicsComponent = class(PhysicsComponent)
+--Inherits PhysicsComponent
+StandardPhysicsComponent = class(PhysicsComponent)
 
-
-function PlayerPhysicsComponent:update(object)
+function StandardPhysicsComponent:update(object, WORLD_PARMAS)
+	--Apply velocity and update position
 	object.x = object.x + object.velocity["x"]
 	object.y = object.y + object.velocity["y"]
+
+	--If object goes out of bounds, place it on the opposite side
+	if object.x > WORLD_PARMAS["width"] then
+		object.x = 0
+	elseif object.x < 0 then
+		object.x = WORLD_PARMAS["width"]
+	end
+
+	if object.y > WORLD_PARMAS["height"] then
+		object.y = 0
+	elseif object.y < 0 then
+		object.y = WORLD_PARMAS["height"]
+	end
+
 end

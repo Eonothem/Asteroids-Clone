@@ -1,3 +1,6 @@
+--Generic class function that allows you to make classes since lua is stupid
+--####################
+
 -- class.lua
 -- Compatible with Lua 5.1 (not 5.0).
 function class(base, init)
