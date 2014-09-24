@@ -21,9 +21,9 @@ GameObject = class(function(p, x, y, name)
 				end)
 
 --Updates all the components in GameObject class
-function GameObject:update(WORLD_PARMAS)
+function GameObject:update(WORLD_PARAMS)
 	input:update(self)
-	physics:update(self, WORLD_PARMAS)
+	physics:update(self, WORLD_PARAMS)
 end
 
 --##############################
@@ -68,22 +68,22 @@ PhysicsComponent = class()
 --Inherits PhysicsComponent
 StandardPhysicsComponent = class(PhysicsComponent)
 
-function StandardPhysicsComponent:update(object, WORLD_PARMAS)
+function StandardPhysicsComponent:update(object, WORLD_PARAMS)
 	--Apply velocity and update position
 	object.x = object.x + object.velocity["x"]
 	object.y = object.y + object.velocity["y"]
 
 	--If object goes out of bounds, place it on the opposite side
-	if object.x > WORLD_PARMAS["width"] then
+	if object.x > WORLD_PARAMS["width"] then
 		object.x = 0
 	elseif object.x < 0 then
-		object.x = WORLD_PARMAS["width"]
+		object.x = WORLD_PARAMS["width"]
 	end
 
-	if object.y > WORLD_PARMAS["height"] then
+	if object.y > WORLD_PARAMS["height"] then
 		object.y = 0
 	elseif object.y < 0 then
-		object.y = WORLD_PARMAS["height"]
+		object.y = WORLD_PARAMS["height"]
 	end
 
 end
