@@ -3,8 +3,8 @@ require("iterator")
 
 --Init World Paramaters
 WORLD_PARAMS = {}
-WORLD_PARAMS["width"] = 400
-WORLD_PARAMS["height"] = 400
+WORLD_PARAMS["width"] = 550
+WORLD_PARAMS["height"] = 550
 
 --Holds all of the objects in the game
 object_list = {}
