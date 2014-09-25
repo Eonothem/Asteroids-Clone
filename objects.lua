@@ -44,8 +44,10 @@ function PlayerInputComponent:update(object)
 	
 	if love.keyboard.isDown("right") then
 		object.velocity["x"] = MOVE_SPEED
+		object.direction = "right"
 	elseif love.keyboard.isDown("left") then
 		object.velocity["x"] = -MOVE_SPEED
+		object.direction = "left"
 	else
 		object.velocity["x"] = 0
 	end
