@@ -8,9 +8,12 @@ In the words of the great Alexey Pajitnov...
 Who needs Google Docs when you have github.
 
 ## To-do list of features
-- Player faces left or right depending on key pressed.
-- Player shoots bullets.
+- Clear all bullets on screen by pressing a key (DEBUG FEATURE)
+- Add moving enemies
 
 
 ## Resources
 [Game Programming Patterns (Read this if you have no idea what's going on)](http://gameprogrammingpatterns.com/)
+
+## Notes
+Can someone explain why x is associated with sin and y is associated with cos when that's not how trig normally works?.... Also why is cos multiplied by -1
