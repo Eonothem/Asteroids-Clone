@@ -11,9 +11,11 @@ object_list = {}
 
 function love.load()
 	--Set game window properties
+	image = love.graphics.newImage("triangle.png")
+
 	love.window.setMode(WORLD_PARAMS["width"], WORLD_PARAMS["height"])
 
-	player = GameObject(100, 100, "PLAYER")
+	player = GameObject(100, 100, PlayerInputComponent(), StandardPhysicsComponent(), image, "PLAYER")
 
 	--Insert the player into the object list
 	table.insert(object_list, player)
@@ -29,5 +31,15 @@ function love.update(dt)
 end
 
 function love.draw()
-	love.graphics.rectangle("fill", player.x, player.y, 10, 10)
+	--love.graphics.rectangle("fill", player.x, player.y, 10, 10)
+	for object in list_iter(object_list) do
+		love.graphics.setColor(255,255,255,255)
+
+		--Last two params are the offset in order to make the object rotate around the center
+		love.graphics.draw(object.texture, object.x, object.y, math.rad(object.orientation), 1, 1, object.centerOffsetX, object.centerOffsetY)
+		
+		--Draws the orgin of the object
+		love.graphics.setColor(255,0,0,255)
+		love.graphics.circle("fill", object.x, object.y, 5, 100)
+	end
 end
