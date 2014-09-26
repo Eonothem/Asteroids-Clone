@@ -11,5 +11,6 @@ Who needs Google Docs when you have github.
 - Player faces left or right depending on key pressed.
 - Player shoots bullets.
 
+
 ## Resources
 [Game Programming Patterns (Read this if you have no idea what's going on)](http://gameprogrammingpatterns.com/)

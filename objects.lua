@@ -1,11 +1,12 @@
 require("class")
 
 --Generic class that can be any object in the game (Player/Asteroid)
-GameObject = class(function(p, x, y, input, physics, texture, name)
+GameObject = class(function(p, x, y, orientation, input, physics, texture, name)
 				--Position Properties
 				p.x = x
 				p.y = y
-				p.orientation = 0
+				p.orientation = orientation
+
 
 				--Velocity of the object
 				p.velocity = {}
@@ -28,9 +29,9 @@ GameObject = class(function(p, x, y, input, physics, texture, name)
 				end)
 
 --Updates all the components in GameObject class
-function GameObject:update(WORLD_PARAMS)
+function GameObject:update(WORLD_PARAMS, object_list)
 
-	self.input:update(self)
+	self.input:update(self, object_list)
 	self.physics:update(self, WORLD_PARAMS)
 end
 
@@ -50,26 +51,19 @@ InputComponent = class()
 PlayerInputComponent = class(InputComponent)
 
 --Changes the velocity of the object but does NOT actually move it
-function PlayerInputComponent:update(object)
+function PlayerInputComponent:update(object, object_list)
 	--Move Speed [In pixels]
-	MOVE_SPEED = 3
-	ROTATE_SPEED = 5
+	local MOVE_SPEED = 10
+	local ROTATE_SPEED = .1
 	
-	if love.keyboard.isDown("right") then
-		object.velocity["x"] = MOVE_SPEED
-	elseif love.keyboard.isDown("left") then
-		object.velocity["x"] = -MOVE_SPEED
+	if love.keyboard.isDown("w") then
+		object.velocity["x"] = MOVE_SPEED*math.sin(object.orientation)
+		object.velocity["y"] = -MOVE_SPEED*math.cos(object.orientation)
 	else
 		object.velocity["x"] = 0
-	end
-
-	if love.keyboard.isDown("down") then
-		object.velocity["y"] = MOVE_SPEED
-	elseif love.keyboard.isDown("up") then
-		object.velocity["y"] = -MOVE_SPEED
-	else
 		object.velocity["y"] = 0
 	end
+	      
 
 	if love.keyboard.isDown("a") then
 		object.orientation = object.orientation-ROTATE_SPEED
@@ -77,11 +71,25 @@ function PlayerInputComponent:update(object)
 		object.orientation = object.orientation+ROTATE_SPEED
 	end
 
+
 	if love.keyboard.isDown(" ") then
-		--Add observer and pass in x,y,and orientation
-		--That thing creates the bullet and adds it to the world
+		--MOVE IMAGES TO A GENERIC IMAGE FOLDER THAN GET IT FROM THERE
+		--print("FIRE")
+		bullet = GameObject(object.x, object.y, object.orientation, BulletInputComponent(), StandardPhysicsComponent(), tex, "BULLET")
+		table.insert(object_list, bullet)
 	end
 
+end
+
+BulletInputComponent = class(InputComponent)
+tex = love.graphics.newImage("bullet.png")
+
+
+function BulletInputComponent:update(object)
+	local BULLET_SPEED = 20
+	
+	object.velocity["x"] = BULLET_SPEED*math.sin(object.orientation)
+	object.velocity["y"] = -BULLET_SPEED*math.cos(object.orientation)
 end
 
 --#################
