@@ -1,5 +1,6 @@
 require("objects")
-require("iterator")
+require("helper_classes/iterator")
+require("sprites")
 
 --Init World Paramaters
 WORLD_PARAMS = {}
@@ -11,25 +12,32 @@ object_list = {}
 
 function love.load()
 	--Set game window properties
-	image = love.graphics.newImage("triangle.png")
-
 	love.window.setMode(WORLD_PARAMS["width"], WORLD_PARAMS["height"])
 
-	player = GameObject(100, 100, 0, PlayerInputComponent(), StandardPhysicsComponent(), image, "PLAYER")
+	--Game object creation
+	player = createNewPlayer(100, 100)
 
 	--Insert the player into the object list
 	table.insert(object_list, player)
 end
 
+function createNewPlayer(x, y)
+	return GameObject(x, y, 0, PlayerInputComponent(), PLAYER_TEXTURE, "PLAYER")
+end
+
+--##############################
+
+
 function love.update(dt)
 
 	--Update every object in the world
 	for object in list_iter(object_list) do
-		--print(object.name)
 		object:update(WORLD_PARAMS, object_list)
 	end
 
 end
+
+--##############################
 
 function love.draw()
 	--love.graphics.rectangle("fill", player.x, player.y, 10, 10)
@@ -41,6 +49,6 @@ function love.draw()
 
 		--Draws the orgin of the object
 		love.graphics.setColor(255,0,0,255)
-		love.graphics.circle("fill", object.x, object.y, 5, 100)
+		love.graphics.circle("line", object.hitCircle.x, object.hitCircle.y, object.hitCircle.radius, 100)
 	end
 end
