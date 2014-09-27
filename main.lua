@@ -16,13 +16,17 @@ function love.load()
 
 	--Game object creation
 	player = createNewPlayer(100, 100)
-	asteroid
+	--asteroid = GameObject(300,300,0,)
 	--Insert the player into the object list
 	table.insert(object_list, player)
 end
 
 function createNewPlayer(x, y)
 	return GameObject(x, y, 0, PlayerInputComponent(), PLAYER_TEXTURE, "PLAYER")
+end
+
+function createNewAsteroid(x,y)
+	return GameObject(x, y, 0, ProjetileInputComponent(3), nil, "ASTEROID")
 end
 
 --##############################

@@ -50,7 +50,10 @@ end
 --##############################
 
 --Input allows for either actual physical player input, or AI input
-InputComponent = class()
+--Can pass in speed if you so wish to
+InputComponent = class(function(i, speed)
+						i.speed = speed
+						end)
 
 --Inheriets basic InputComponent class
 PlayerInputComponent = class(InputComponent)
@@ -79,14 +82,14 @@ function PlayerInputComponent:update(object, object_list)
 
 
 	if love.keyboard.isDown(" ") then
-		bullet = GameObject(object.x, object.y, object.orientation, BulletInputComponent(), BULLET_TEXTURE, "BULLET")
+		bullet = GameObject(object.x, object.y, object.orientation, ProjectileInputComponent(10), BULLET_TEXTURE, "BULLET")
 		table.insert(object_list, bullet)
 	end 
 end
 
-BulletInputComponent = class(InputComponent)
-function BulletInputComponent:update(object)
-	local BULLET_SPEED = 20
+ProjectileInputComponent = class(InputComponent)
+function ProjectileInputComponent:update(object)
+	local BULLET_SPEED = self.speed
 	
 	object.velocity["x"] = BULLET_SPEED*math.sin(object.orientation)
 	object.velocity["y"] = -BULLET_SPEED*math.cos(object.orientation)
