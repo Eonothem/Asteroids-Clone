@@ -58,18 +58,20 @@ PlayerInputComponent = class(InputComponent)
 --Changes the velocity of the object but does NOT actually move it
 function PlayerInputComponent:update(object, object_list)
 	--Move Speed [In pixels]
-	local MOVE_SPEED = 10
+	local ACCELERATION = 1
+	local BRAKE_FACTOR = 0.92
 	local ROTATE_SPEED = .1
 	
 	if love.keyboard.isDown("w") then
-		object.velocity["x"] = MOVE_SPEED*math.sin(object.orientation)
-		object.velocity["y"] = -MOVE_SPEED*math.cos(object.orientation)
-	else
-		object.velocity["x"] = 0
-		object.velocity["y"] = 0
+		object.velocity["x"] = object.velocity["x"]+ACCELERATION*math.sin(object.orientation)
+		object.velocity["y"] = object.velocity["y"]-ACCELERATION*math.cos(object.orientation)
 	end
-	      
-	--Rotates the object
+
+	if love.keyboard.isDown("s") then
+		object.velocity["x"] = object.velocity["x"]*BRAKE_FACTOR
+		object.velocity["y"] = object.velocity["y"]*BRAKE_FACTOR
+	end   
+
 	if love.keyboard.isDown("a") then
 		object.orientation = object.orientation-ROTATE_SPEED
 	elseif love.keyboard.isDown("d") then
