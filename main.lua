@@ -16,7 +16,7 @@ function love.load()
 
 	--Game object creation
 	player = createNewPlayer(100, 100)
-
+	asteroid
 	--Insert the player into the object list
 	table.insert(object_list, player)
 end

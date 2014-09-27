@@ -48,7 +48,6 @@ end
 --##############################
 --#         COMPONENTS         #
 --##############################
---Basically this allows you to plug in different ways of doing... stuff
 
 --Input allows for either actual physical player input, or AI input
 InputComponent = class()
