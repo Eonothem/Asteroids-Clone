@@ -9,7 +9,10 @@ Who needs Google Docs when you have github.
 
 ## To-do list of features
 - Clear all bullets on screen by pressing a key (DEBUG FEATURE)
+- I'm probably gonna split the object_list into sub lists (Asteroids/Bullets/Player(s)), for collision detection so this would be easy to implement. 
+
 - Add moving enemies
+- Will do
 
 
 ## Resources
