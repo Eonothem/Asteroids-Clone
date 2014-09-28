@@ -8,11 +8,12 @@ In the words of the great Alexey Pajitnov...
 Who needs Google Docs when you have github.
 
 ## To-do list of features
-- Clear all bullets on screen by pressing a key (DEBUG FEATURE)
+- Limit number of bullets in existence at any moment (if you just fire continuously you can generate some ridiculous lag)
+- Clear all bullets by pressing a key (DEBUG FEATURE)
 - I'm probably gonna split the object_list into sub lists (Asteroids/Bullets/Player(s)), for collision detection so this would be easy to implement. 
 
 - Add moving enemies
-- Will do
+ - Will do
 
 
 ## Resources
